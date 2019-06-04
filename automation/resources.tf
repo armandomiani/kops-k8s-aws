@@ -1,5 +1,5 @@
 resource "aws_iam_group" "kops_group" {
-  name = "kops"
+  name = "${var.project.default_group_name}"
 }
 
 resource "aws_iam_group_policy_attachment" "kops_group_ec2_full_access" {
@@ -18,13 +18,17 @@ resource "aws_iam_group_policy_attachment" "kops_group_iam_full_access" {
 }
 
 resource "aws_iam_user" "kops_user" {
-  name = "kops"
+  name = "${var.project.default_user_name}"
 }
 
 resource "aws_iam_access_key" "kops_access_key" {
   user = "${aws_iam_user.kops_user.name}"
 }
 
-output "aws_access_keys" {
-    value = "${aws_iam_access_key.kops_access_key.encrypted_secret}"
+output "aws_access_key_secret" {
+    value = "${aws_iam_access_key.kops_access_key.secret}"
+}
+
+output "aws_access_key_id" {
+    value = "${aws_iam_access_key.kops_access_key.id}"
 }

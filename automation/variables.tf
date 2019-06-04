@@ -6,3 +6,9 @@ variable "aws_credentials" {
     }
 }
 
+variable "project" {
+    default = {
+        default_group_name = "kops"
+        default_user_name = "kops"
+    }
+}
